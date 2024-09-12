@@ -51,13 +51,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 
 
 # DATA VISUALIZATION
-# X_train__ = X_train.reshape(X_train.shape[0], 28, 28)
-#
-# fig, axis = plt.subplots(1, 4, figsize=(20, 10))
-# for i, ax in enumerate(axis.flat):
-#     ax.imshow(X_train__[i], cmap='binary')
-#     digit = y_train[i].argmax()
-#     ax.set(title=f"Real Number is {digit}")
+X_train__ = X_train.reshape(X_train.shape[0], 28, 28)
+
+fig, axis = plt.subplots(1, 4, figsize=(20, 10))
+for i, ax in enumerate(axis.flat):
+    ax.imshow(X_train__[i], cmap='binary')
+    digit = y_train[i].argmax()
+    ax.set(title=f"Real Number is {digit}")
 #
 # # NORMALIZATION
 mean = np.mean(X_train)
