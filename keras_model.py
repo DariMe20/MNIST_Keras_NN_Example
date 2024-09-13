@@ -27,3 +27,6 @@ model.add(Dense(10, activation="softmax"))
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
 model.summary()
+
+# Save the initial model
+model.save("models/model1.keras")
