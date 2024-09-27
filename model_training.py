@@ -5,9 +5,10 @@ from keras.models import load_model
 from data_augmentation import train_gen, test_gen
 from data_manipulation import X_train, X_test
 
-model = load_model("models/model1.keras")
+model_name = "model_mini_network_1"
+model = load_model(f"models/{model_name}.keras")
 
-epochs = 30
+epochs = 100
 batch_size = 128
 train_steps = X_train.shape[0] // batch_size
 valid_steps = X_test.shape[0] // batch_size
@@ -44,10 +45,10 @@ history = model.fit(train_gen,
                     callbacks=[es, rp])
 
 # Save the trained model
-model.save("models/trained_model1.keras")
+model.save(f"models/trained_{model_name}.h5")
 
 # Save the training history
-with open('history/history_trained_model1', 'wb') as f:
+with open(f'history/history_trained_{model_name}', 'wb') as f:
     pickle.dump(history.history, f)
 
 print("Model and history saved successfully!")

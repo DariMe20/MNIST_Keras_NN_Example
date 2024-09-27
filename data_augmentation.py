@@ -48,8 +48,7 @@ Parameters:
 This configuration applies several augmentations like random rotations, zooms, and shifts to increase
 the variety of training samples without distorting the dataset too much.
 """
-
-from keras_preprocessing.image import ImageDataGenerator
+from keras.src.preprocessing.image import ImageDataGenerator
 from data_manipulation import X_train, y_train, X_test, y_test
 
 datagen = ImageDataGenerator(

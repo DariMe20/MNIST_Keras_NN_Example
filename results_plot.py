@@ -9,7 +9,7 @@ from data_manipulation import X_test, y_test
 import datetime
 
 # Set the model name
-model_name = 'trained_model1'
+model_name = 'trained_model_mini_network_1'
 
 # Create the main folder where all results will be saved
 main_folder = './results_plots/'
@@ -25,7 +25,7 @@ model_folder = os.path.join(main_folder, f'{model_name}_{timestamp}')
 os.makedirs(model_folder, exist_ok=True)
 
 # Load the trained model
-model = load_model(f'models/{model_name}.keras')
+model = load_model(f'models/{model_name}.h5', compile=False)
 
 # Load training history
 with open(f'history/history_{model_name}', 'rb') as f:
@@ -71,17 +71,22 @@ plt.ylabel('True Values')
 # Save the confusion matrix plot
 plt.savefig(f'{model_folder}/confusion_matrix.png')
 
-"""PREDICTIONS ON TEST DATA"""
-y_pred = model.predict(X_test)
+"""PLOT ONLY WRONG PREDICTIONS"""
 X_test__ = X_test.reshape(X_test.shape[0], 28, 28)
 
-# Plot predicted vs actual for a few examples
-fig, axis = plt.subplots(4, 4, figsize=(12, 14))
-for i, ax in enumerate(axis.flat):
-    ax.imshow(X_test__[i], cmap='binary')
-    ax.set(title=f"Real Number is {y_test[i].argmax()}\nPredict Number is {y_pred[i].argmax()}")
+# Find indices where predictions are incorrect
+wrong_indices = np.where(Y_pred != Y_test)[0]
 
-# Save the predictions plot
-plt.savefig(f'{model_folder}/predictions_on_test_data.png')
+# Plot only the incorrect predictions
+fig, axis = plt.subplots(4, 4, figsize=(12, 14))  # Modify as needed to adjust the grid size
+for i, ax in enumerate(axis.flat):
+    if i < len(wrong_indices):  # Ensure we don't go out of bounds
+        idx = wrong_indices[i]
+        ax.imshow(X_test__[idx], cmap='binary')
+        ax.set(title=f"Real: {Y_test[idx]}\nPredict: {Y_pred[idx]}")
+    ax.axis('off')  # Hide axes for better visualization
+
+# Save the incorrect predictions plot
+plt.savefig(f'{model_folder}/wrong_predictions.png')
 
 print(f"Plots saved successfully in folder: {model_folder}")
