@@ -3,10 +3,10 @@ import pickle
 
 from keras.models import load_model
 from data_augmentation import train_gen, test_gen
-from data_manipulation import X_train, X_test
+from data_manipulation import X_train, X_test, X, y
 
-model_name = "model_mini_network_1"
-model = load_model(f"models/{model_name}.keras")
+model_name = "model_1layer_network"
+model = load_model(f"models/{model_name}.h5")
 
 epochs = 100
 batch_size = 128

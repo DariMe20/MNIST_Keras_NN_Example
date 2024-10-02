@@ -9,7 +9,7 @@ from data_manipulation import X_test, y_test
 import datetime
 
 # Set the model name
-model_name = 'trained_model_mini_network_1'
+model_name = 'trained_model_1layer_network'
 
 # Create the main folder where all results will be saved
 main_folder = './results_plots/'
@@ -77,10 +77,14 @@ X_test__ = X_test.reshape(X_test.shape[0], 28, 28)
 # Find indices where predictions are incorrect
 wrong_indices = np.where(Y_pred != Y_test)[0]
 
-# Plot only the incorrect predictions
-fig, axis = plt.subplots(4, 4, figsize=(12, 14))  # Modify as needed to adjust the grid size
+# Plot all incorrect predictions
+num_wrong = len(wrong_indices)
+num_cols = 4
+num_rows = (num_wrong // num_cols) + (num_wrong % num_cols > 0)
+
+fig, axis = plt.subplots(num_rows, num_cols, figsize=(12, 3 * num_rows))  # Adjust height based on number of rows
 for i, ax in enumerate(axis.flat):
-    if i < len(wrong_indices):  # Ensure we don't go out of bounds
+    if i < num_wrong:  # Ensure we don't go out of bounds
         idx = wrong_indices[i]
         ax.imshow(X_test__[idx], cmap='binary')
         ax.set(title=f"Real: {Y_test[idx]}\nPredict: {Y_pred[idx]}")
@@ -88,5 +92,17 @@ for i, ax in enumerate(axis.flat):
 
 # Save the incorrect predictions plot
 plt.savefig(f'{model_folder}/wrong_predictions.png')
+
+# Calculate the accuracy of the model on the test set
+num_total_images = len(Y_test)
+num_correct_predictions = np.sum(Y_pred == Y_test)
+accuracy = (num_correct_predictions / num_total_images) * 100
+
+# Save the summary plot
+plt.savefig(f'{model_folder}/model_performance.png')
+
+# Print detailed summary
+print(f"Model predicted {accuracy:.2f}% correct images from the test set.")
+print(f"That means {num_correct_predictions} correct predictions out of a total of {num_total_images} images.")
 
 print(f"Plots saved successfully in folder: {model_folder}")
