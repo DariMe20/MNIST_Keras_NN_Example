@@ -3,11 +3,9 @@ channels:
   - defaults
 dependencies:
   - blas=1.0=mkl
-  - bosch-ca=1.0=1
   - brotli=1.0.9=h2bbff1b_8
   - brotli-bin=1.0.9=h2bbff1b_8
   - bzip2=1.0.8=he774522_0
-  - ca-certificates=2022.10.11=boschca_haa95532_0
   - contourpy=1.2.0=py310h59b6b97_0
   - cycler=0.11.0=pyhd3eb1b0_0
   - fonttools=4.51.0=py310h2bbff1b_0
