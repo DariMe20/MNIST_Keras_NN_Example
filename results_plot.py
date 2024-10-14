@@ -9,7 +9,7 @@ from data_manipulation import X_test, y_test
 import datetime
 
 # Set the model name
-model_name = 'trained_model_1layer_network'
+model_name = 'trained_model_complex'
 
 # Create the main folder where all results will be saved
 main_folder = './results_plots/'
@@ -77,7 +77,11 @@ X_test__ = X_test.reshape(X_test.shape[0], 28, 28)
 # Find indices where predictions are incorrect
 wrong_indices = np.where(Y_pred != Y_test)[0]
 
-# Plot all incorrect predictions
+# Limit the number of incorrect predictions to display
+max_wrong = 50
+wrong_indices = wrong_indices[:max_wrong]  # Limit the number of indices to 50
+
+# Plot all incorrect predictions (up to 50)
 num_wrong = len(wrong_indices)
 num_cols = 4
 num_rows = (num_wrong // num_cols) + (num_wrong % num_cols > 0)
@@ -97,9 +101,6 @@ plt.savefig(f'{model_folder}/wrong_predictions.png')
 num_total_images = len(Y_test)
 num_correct_predictions = np.sum(Y_pred == Y_test)
 accuracy = (num_correct_predictions / num_total_images) * 100
-
-# Save the summary plot
-plt.savefig(f'{model_folder}/model_performance.png')
 
 # Print detailed summary
 print(f"Model predicted {accuracy:.2f}% correct images from the test set.")

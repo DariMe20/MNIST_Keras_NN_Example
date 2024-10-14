@@ -29,4 +29,4 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 model.summary()
 
 # Save the initial model
-model.save("models/model1.keras")
+model.save("models/model_complex.h5")

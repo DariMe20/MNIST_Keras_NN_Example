@@ -9,12 +9,7 @@ print(os.listdir('dataset'))  # ['sample_submission.csv', 'test.csv', 'train.csv
 
 # LOAD DATA
 train = pd.read_csv('dataset/train.csv')
-test = pd.read_csv('dataset/test.csv')
-sub = pd.read_csv('dataset/sample_submission.csv')
 print("Dataset is Loaded!!")
-
-# PRINT DATA SIZE
-print(f"Training data size is {train.shape}\nTesting data size is {test.shape}")
 
 # SET DATA FEATURES AND LABELS
 
@@ -34,7 +29,8 @@ y = to_categorical(y)  # Labels are 10 digits numbers from 0 to 9. We need to en
 # Test_size = 0.1 means 10% of data is for testing, 90% is for training
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
 # shape of data: ((37800, 28, 28, 1), (4200, 28, 28, 1), (37800, 10), (4200, 10))
-
+# PRINT DATA SIZE
+print(f"Training data shape is {X_train.shape}\nTesting data shape is {X_test.shape}")
 
 # DATA VISUALIZATION
 X_train__ = X_train.reshape(X_train.shape[0], 28, 28)
